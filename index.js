@@ -7,6 +7,7 @@ const mysql = require("mysql2");
 
 var app = express();
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 
 //CONFIGURO MI CONEXION A BASE DE DATOS
 
