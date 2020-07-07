@@ -7,7 +7,7 @@ const mysql = require("mysql2");
 
 var app = express();
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
 
 //CONFIGURO MI CONEXION A BASE DE DATOS
 
@@ -70,10 +70,57 @@ app.post("/categoriasEquipo/create", function(request,response){
     var nombreCategoriaEquipo = request.body.nombre;
     var idCategoriaEquipo = request.body.idCategoriaEquipo;
 
-    //Crear Json
-    var obtenerJson = {
-        idCategoriaEquipo:idCategoriaEquipo,
-        nombre : nombreCategoriaEquipo
-    };
-    response.json(obtenerJson);
+    var query = "INSERT INTO categoriaequipo (idCategoriaEquipo, nombre) VALUES (?, ?);"
+    var  query2= "select * from categoriaequipo where idCategoriaEquipo =?";
+    var parametros =[idCategoriaEquipo, nombreCategoriaEquipo];
+
+    conn.query(query,parametros,function(error,resultado)
+    {
+        if (error) {
+            console.log(error);
+        } else {
+           var id = resultado.insertId.toString();
+
+            conn.query(query2,[id],function(err,resul)
+            {
+                if (err) {
+                    console.log(err);
+                } else {
+                    response.json(resul);
+                }
+            });
+
+
+
+            //response.json(resultado);
+        }
+    });
+});
+
+
+//localhost:9669/categoriasEquipo/update
+app.post("/categoriasEquipo/update", function(request,response){
+
+    var idCategoriaEquipo = request.params.idCategoriaEquipo;
+    var nombreCategoriaEquipo = request.params.nombreCategoriaEquipo;
+    var nombreCategoriaEquipo2 = request.body.nombre;
+    var idCategoriaEquipo2 = request.body.idCategoriaEquipo;
+
+    var query = "UPDATE  categoriaequipo SET idCategoriaEquipo = idCategoriaEquipo2, nombre = nombreCategoriaEquipo2  WHERE (idCategoriaEquipo = ? AND nombre=?);"
+    var parametros =[idCategoriaEquipo,nombreCategoriaEquipo];
+
+    conn.query(query,parametros,function(err,resultado)
+    {
+        if (err) {
+            console.log(err);
+        } else {
+            //Crear Json
+            var obtenerJson = {
+                idCategoriaEquipo:idCategoriaEquipo2,
+                nombre : nombreCategoriaEquipo2
+            };
+            response.json(obtenerJson);
+            response.json(resultado);
+        }
+    });
 });
