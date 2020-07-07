@@ -249,6 +249,7 @@ app.post("/sitios/create", function(request,response) {
 
 //localhost:9669/categoriasEquipo/update
     app.post("/categoriasEquipo/update", function (request, response) {
+        //Tenia que quitar los params y solo trabajar con los bodies
 
         var idCategoriaEquipo = request.params.idCategoriaEquipo;
         var nombreCategoriaEquipo = request.params.nombreCategoriaEquipo;
