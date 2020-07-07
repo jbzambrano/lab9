@@ -62,3 +62,17 @@ app.get("/categoriasEquipo/get/", function(request,response){
     })
 
 });
+
+//localhost:9669/categoriasEquipo/create
+app.post("/categoriasEquipo/create", function(request,response){
+
+    var nombreCategoriaEquipo = request.body.nombre;
+    var idCategoriaEquipo = request.body.idCategoriaEquipo;
+
+    //Crear Json
+    var obtenerJson = {
+        idCategoriaEquipo:idCategoriaEquipo,
+        nombre : nombreCategoriaEquipo
+    };
+    response.json(obtenerJson);
+});
