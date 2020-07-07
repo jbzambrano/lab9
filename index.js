@@ -90,9 +90,6 @@ app.post("/categoriasEquipo/create", function(request,response){
                 }
             });
 
-
-
-            //response.json(resultado);
         }
     });
 });
@@ -106,9 +103,31 @@ app.post("/categoriasEquipo/update", function(request,response){
     var nombreCategoriaEquipo2 = request.body.nombre;
     var idCategoriaEquipo2 = request.body.idCategoriaEquipo;
 
-    var query = "UPDATE  categoriaequipo SET idCategoriaEquipo = idCategoriaEquipo2, nombre = nombreCategoriaEquipo2  WHERE (idCategoriaEquipo = ? AND nombre=?);"
-    var parametros =[idCategoriaEquipo,nombreCategoriaEquipo];
+    var query = "UPDATE categoriaequipo SET idCategoriaEquipo = ?, nombre = ?  WHERE (idCategoriaEquipo = ? AND nombre=?);"
+    var parametros =[idCategoriaEquipo2,nombreCategoriaEquipo2,idCategoriaEquipo,nombreCategoriaEquipo];
+    var query2 = "select * from categoriaequipo where idCategoriaEquipo =?";
 
+
+    conn.query(query,parametros,function(error,resultado)
+    {
+        if (error) {
+            console.log(error);
+        } else {
+            var id = resultado.insertId.toString();
+
+            conn.query(query2,[id],function(err,result)
+            {
+                if (err) {
+                    console.log(err);
+                } else {
+                    response.json(result);
+                }
+            });
+
+        }
+    });
+
+    /*
     conn.query(query,parametros,function(err,resultado)
     {
         if (err) {
@@ -123,4 +142,6 @@ app.post("/categoriasEquipo/update", function(request,response){
             response.json(resultado);
         }
     });
+
+     */
 });
