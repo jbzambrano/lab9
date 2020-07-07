@@ -115,7 +115,7 @@ app.listen(9669,function(){
 
 
 
-<<<<<<< HEAD
+
 app.post("/sitios/create", function(request,response){
     var codigoSitio = request.body.codigoSitio;
     var idCentroPoblado = request.body.idCentroPoblado;
@@ -148,7 +148,7 @@ app.post("/sitios/create", function(request,response){
     });
 
 
-=======
+
 //localhost:9669:categoriasEquipo/get/{id}
 app.get("/categoriasEquipo/get/:id", function(request,response){
     var idCategoriasEquipo = request.params.id;
@@ -162,12 +162,12 @@ app.get("/categoriasEquipo/get/:id", function(request,response){
             response.json(result);
         }
     })
->>>>>>> ef368d6707519941831053877b57f736d52b7cfd
+
 
 });
 
 
-<<<<<<< HEAD
+
 
 app.post("/equipos/create", function(request,response){
     var nombreEquipo = request.body.nombreEquipo;
@@ -210,7 +210,7 @@ app.post("/equipos/create", function(request,response){
 
 
 
-=======
+
 //localhost:9669:categoriasEquipo/get
 app.get("/categoriasEquipo/get/", function(request,response){
     var query = "select * from categoriaequipo";
@@ -251,9 +251,6 @@ app.post("/categoriasEquipo/create", function(request,response){
                 }
             });
 
-
-
-            //response.json(resultado);
         }
     });
 });
@@ -264,12 +261,34 @@ app.post("/categoriasEquipo/update", function(request,response){
 
     var idCategoriaEquipo = request.params.idCategoriaEquipo;
     var nombreCategoriaEquipo = request.params.nombreCategoriaEquipo;
-    var nombreCategoriaEquipo2 = request.body.nombre;
-    var idCategoriaEquipo2 = request.body.idCategoriaEquipo;
+    var nombreCategoriaEquipo = request.body.nombre;
+    var idCategoriaEquipo = request.body.idCategoriaEquipo;
 
-    var query = "UPDATE  categoriaequipo SET idCategoriaEquipo = idCategoriaEquipo2, nombre = nombreCategoriaEquipo2  WHERE (idCategoriaEquipo = ? AND nombre=?);"
-    var parametros =[idCategoriaEquipo,nombreCategoriaEquipo];
+    var query = "UPDATE categoriaequipo SET idCategoriaEquipo = ?, nombre = ?  WHERE (idCategoriaEquipo = ? AND nombre=?);"
+    var parametros =[idCategoriaEquipo2,nombreCategoriaEquipo2,idCategoriaEquipo,nombreCategoriaEquipo];
+    var query2 = "select * from categoriaequipo where idCategoriaEquipo =?";
 
+
+    conn.query(query,parametros,function(error,resultado)
+    {
+        if (error) {
+            console.log(error);
+        } else {
+            var id = resultado.insertId.toString();
+
+            conn.query(query2,[id],function(err,result)
+            {
+                if (err) {
+                    console.log(err);
+                } else {
+                    response.json(result);
+                }
+            });
+
+        }
+    });
+
+    /*
     conn.query(query,parametros,function(err,resultado)
     {
         if (err) {
@@ -284,5 +303,11 @@ app.post("/categoriasEquipo/update", function(request,response){
             response.json(resultado);
         }
     });
+<<<<<<< HEAD
 });
 >>>>>>> ef368d6707519941831053877b57f736d52b7cfd
+=======
+
+     */
+});
+
