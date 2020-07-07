@@ -100,8 +100,8 @@ app.post("/categoriasEquipo/update", function(request,response){
 
     var idCategoriaEquipo = request.params.idCategoriaEquipo;
     var nombreCategoriaEquipo = request.params.nombreCategoriaEquipo;
-    var nombreCategoriaEquipo2 = request.body.nombre;
-    var idCategoriaEquipo2 = request.body.idCategoriaEquipo;
+    var nombreCategoriaEquipo = request.body.nombre;
+    var idCategoriaEquipo = request.body.idCategoriaEquipo;
 
     var query = "UPDATE categoriaequipo SET idCategoriaEquipo = ?, nombre = ?  WHERE (idCategoriaEquipo = ? AND nombre=?);"
     var parametros =[idCategoriaEquipo2,nombreCategoriaEquipo2,idCategoriaEquipo,nombreCategoriaEquipo];
