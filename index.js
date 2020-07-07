@@ -149,6 +149,14 @@ app.post("/sitios/create", function(request,response) {
 });
 
 
+/*
+Sitios/get
+SELECT s.codigoSitio, s.idCentroPoblado,s.latitud,s.longitud,s.idSitio, c.nombreCentroPoblado, COUNT(e.idequipo) FROM sitios s INNER JOIN centrospoblados c ON s.idCentroPoblado=c.idCentroPoblado INNER JOIN equipos e ON e.idSitio= s.idSitio GROUP BY s.codigoSitio;
+ */
+
+
+
+
 //localhost:9669:categoriasEquipo/get/{id}
     app.get("/categoriasEquipo/get/:id", function (request, response) {
         var idCategoriasEquipo = request.params.id;
